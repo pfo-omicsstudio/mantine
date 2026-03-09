@@ -543,19 +543,28 @@ describe('@mantine/core/TreeSelect', () => {
     });
   });
 
-  describe('expandOnClick selects parent nodes', () => {
-    it('selects and expands parent in single mode', async () => {
+  describe('expandOnClick expands parent nodes without selecting', () => {
+    it('expands parent without selecting in single mode', async () => {
       render(<TreeSelect {...defaultProps} expandOnClick name="test" />);
       await userEvent.click(screen.getByRole('textbox'));
       await userEvent.click(screen.getByRole('option', { name: 'Fruits' }));
-      expect(document.querySelector('input[name="test"]')).toHaveValue('fruits');
+      expect(document.querySelector('input[name="test"]')).toHaveValue('');
+      expect(screen.getByRole('option', { name: 'Apple' })).toBeVisible();
     });
 
-    it('selects and expands parent in multiple mode', async () => {
+    it('expands parent without selecting in multiple mode', async () => {
       render(<TreeSelect {...defaultProps} mode="multiple" expandOnClick name="test" />);
       await userEvent.click(screen.getByRole('textbox'));
       await userEvent.click(screen.getByRole('option', { name: 'Fruits' }));
-      expect(document.querySelector('input[name="test"]')).toHaveValue('fruits');
+      expect(document.querySelector('input[name="test"]')).toHaveValue('');
+      expect(screen.getByRole('option', { name: 'Apple' })).toBeVisible();
+    });
+
+    it('selects leaf nodes normally in single mode with expandOnClick', async () => {
+      render(<TreeSelect {...defaultProps} expandOnClick defaultExpandAll name="test" />);
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Apple' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('apple');
     });
   });
 

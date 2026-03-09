@@ -504,6 +504,7 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
         const node = findTreeNode(val, data);
         if (node && Array.isArray(node.children) && node.children.length > 0) {
           toggleExpand(val);
+          return;
         }
       }
       const nextValue = allowDeselect && val === _value ? null : val;
@@ -517,6 +518,7 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
         const node = findTreeNode(val, data);
         if (node && Array.isArray(node.children) && node.children.length > 0) {
           toggleExpand(val);
+          return;
         }
       }
       if (clearSearchOnChange) {

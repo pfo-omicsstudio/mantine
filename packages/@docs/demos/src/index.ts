@@ -112,6 +112,7 @@ export * as NumberInputDemos from './demos/core/NumberInput';
 export * as NumberFormatterDemos from './demos/core/NumberFormatter';
 export * as FloatingIndicatorDemos from './demos/core/FloatingIndicator';
 export * as TreeDemos from './demos/core/Tree';
+export * as TreeSelectDemos from './demos/core/TreeSelect';
 export * as AngleSliderDemos from './demos/core/AngleSlider';
 export * as FloatingWindowDemos from './demos/core/FloatingWindow';
 export * as RangeSliderDemos from './demos/core/RangeSlider';

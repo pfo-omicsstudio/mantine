@@ -1114,6 +1114,17 @@ export const MDX_CORE_DATA: Record<string, Frontmatter> = {
     docs: 'core/tree.mdx',
   },
 
+  TreeSelect: {
+    title: 'TreeSelect',
+    package: '@mantine/core',
+    slug: '/core/tree-select',
+    props: ['TreeSelect'],
+    styles: ['TreeSelect'],
+    description: 'Select with hierarchical tree data',
+    source: '@mantine/core/src/components/TreeSelect/TreeSelect.tsx',
+    docs: 'core/tree-select.mdx',
+  },
+
   SemiCircleProgress: {
     title: 'SemiCircleProgress',
     package: '@mantine/core',

@@ -1,0 +1,12 @@
+export { usage } from './TreeSelect.demo.usage';
+export { multiple } from './TreeSelect.demo.multiple';
+export { checkbox } from './TreeSelect.demo.checkbox';
+export { searchable } from './TreeSelect.demo.searchable';
+export { clearable } from './TreeSelect.demo.clearable';
+export { expandOnClick } from './TreeSelect.demo.expandOnClick';
+export { checkStrictly } from './TreeSelect.demo.checkStrictly';
+export { checkedStrategy } from './TreeSelect.demo.checkedStrategy';
+export { withLines } from './TreeSelect.demo.withLines';
+export { nothingFound } from './TreeSelect.demo.nothingFound';
+export { maxValues } from './TreeSelect.demo.maxValues';
+export { renderNode } from './TreeSelect.demo.renderNode';

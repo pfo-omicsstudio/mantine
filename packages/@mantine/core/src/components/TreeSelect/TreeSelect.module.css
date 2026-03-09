@@ -27,6 +27,10 @@
   color: var(--mantine-color-dimmed);
   transform: rotate(-90deg);
 
+  :where([data-combobox-selected]) & {
+    color: var(--mantine-color-white);
+  }
+
   @mixin where-rtl {
     transform: rotate(90deg);
   }
