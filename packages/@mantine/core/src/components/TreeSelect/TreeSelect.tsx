@@ -372,11 +372,19 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     [_expandedState]
   );
 
-  // Search state
+  // Search state – initialise with current label so searchable single mode shows the selection
+  const initialSearchValue = useMemo(() => {
+    if (mode !== 'single' || !defaultValue) {
+      return '';
+    }
+    const node = findTreeNode(defaultValue as string, data);
+    return node ? (typeof node.label === 'string' ? node.label : '') : '';
+  }, []);
+
   const [_searchValue, setSearchValue] = useUncontrolled({
     value: searchValue,
     defaultValue: defaultSearchValue,
-    finalValue: '',
+    finalValue: initialSearchValue,
     onChange: onSearchChange,
   });
 
@@ -496,7 +504,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
         const node = findTreeNode(val, data);
         if (node && Array.isArray(node.children) && node.children.length > 0) {
           toggleExpand(val);
-          return;
         }
       }
       const nextValue = allowDeselect && val === _value ? null : val;
@@ -510,7 +517,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
         const node = findTreeNode(val, data);
         if (node && Array.isArray(node.children) && node.children.length > 0) {
           toggleExpand(val);
-          return;
         }
       }
       if (clearSearchOnChange) {
@@ -546,6 +552,9 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
       }
 
       const newValue = checkedToValue(newInternalChecked, data, checkedStrategy!);
+      if (!nodeChecked && newValue.length > (maxValues ?? Infinity)) {
+        return;
+      }
       setValue(newValue);
 
       if (expandOnClick) {
@@ -613,11 +622,13 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
 
   // Sync search with selected label in single mode
   useEffect(() => {
-    if (mode === 'single' && !searchable) {
+    if (mode !== 'single' || !searchable) {
       return;
     }
-    if (mode === 'single' && value === null) {
+    if (value === null) {
       handleSearchChange('');
+    } else if (typeof value === 'string') {
+      handleSearchChange(getNodeLabel(value));
     }
   }, [value]);
 

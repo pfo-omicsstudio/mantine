@@ -514,4 +514,91 @@ describe('@mantine/core/TreeSelect', () => {
     expect(screen.getByRole('option', { name: 'Branch' })).toBeVisible();
     expect(screen.getByRole('option', { name: 'Leaf' })).toBeVisible();
   });
+
+  describe('searchable single mode displays selection', () => {
+    it('shows defaultValue label on mount', () => {
+      render(<TreeSelect {...defaultProps} searchable defaultValue="milk" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Milk');
+    });
+
+    it('shows controlled value label on mount', () => {
+      render(<TreeSelect {...defaultProps} searchable value="milk" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Milk');
+    });
+
+    it('updates displayed label when controlled value changes', () => {
+      const { rerender } = render(<TreeSelect {...defaultProps} searchable value="milk" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Milk');
+
+      rerender(<TreeSelect {...defaultProps} searchable value="fruits" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Fruits');
+    });
+
+    it('clears displayed label when controlled value becomes null', () => {
+      const { rerender } = render(<TreeSelect {...defaultProps} searchable value="milk" />);
+      expect(screen.getByRole('textbox')).toHaveValue('Milk');
+
+      rerender(<TreeSelect {...defaultProps} searchable value={null} />);
+      expect(screen.getByRole('textbox')).toHaveValue('');
+    });
+  });
+
+  describe('expandOnClick selects parent nodes', () => {
+    it('selects and expands parent in single mode', async () => {
+      render(<TreeSelect {...defaultProps} expandOnClick name="test" />);
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Fruits' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('fruits');
+    });
+
+    it('selects and expands parent in multiple mode', async () => {
+      render(<TreeSelect {...defaultProps} mode="multiple" expandOnClick name="test" />);
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Fruits' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('fruits');
+    });
+  });
+
+  describe('maxValues in checkbox mode', () => {
+    it('prevents exceeding maxValues when checking a leaf', async () => {
+      render(
+        <TreeSelect
+          {...defaultProps}
+          mode="checkbox"
+          maxValues={1}
+          defaultExpandAll
+          defaultValue={['apple']}
+          name="test"
+        />
+      );
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Banana' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('apple');
+    });
+
+    it('prevents exceeding maxValues when checking a parent that would cascade', async () => {
+      render(
+        <TreeSelect {...defaultProps} mode="checkbox" maxValues={1} defaultExpandAll name="test" />
+      );
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Fruits' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('');
+    });
+
+    it('allows unchecking even when at maxValues', async () => {
+      render(
+        <TreeSelect
+          {...defaultProps}
+          mode="checkbox"
+          maxValues={1}
+          defaultExpandAll
+          defaultValue={['apple']}
+          name="test"
+        />
+      );
+      await userEvent.click(screen.getByRole('textbox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Apple' }));
+      expect(document.querySelector('input[name="test"]')).toHaveValue('');
+    });
+  });
 });
