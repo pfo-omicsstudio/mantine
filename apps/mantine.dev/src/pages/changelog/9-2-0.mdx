@@ -1,4 +1,4 @@
-import { TreeSelectDemos } from '@docs/demos';
+import { HooksDemos, TreeSelectDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -28,3 +28,11 @@ from Combobox primitives with connecting lines, expand/collapse chevrons, and pr
 - [Searchable tree select](/combobox?e=TreeSelectSearchable) – tree select with search filtering
 - [Tree select with checkboxes](/combobox?e=TreeSelectCheckbox) – single select with expand-on-click
 - [Virtualized tree select](/combobox?e=TreeSelectVirtualized) – large tree (~500 nodes) with @tanstack/react-virtual
+
+## use-drag hook
+
+New [use-drag](/hooks/use-drag) hook handles pointer drag gestures with movement tracking,
+velocity, direction and axis constraints. It uses the Pointer Events API and works with
+both mouse and touch input:
+
+<Demo data={HooksDemos.useDragSwipe} />

@@ -97,3 +97,8 @@ export { useRovingIndexVertical } from './use-roving-index.demo.vertical';
 export { useRovingIndexGrid } from './use-roving-index.demo.grid';
 export { useRovingIndexDisabled } from './use-roving-index.demo.disabled';
 export { useRovingIndexLoop } from './use-roving-index.demo.loop';
+export { useDragUsage } from './use-drag.demo.usage';
+export { useDragAxis } from './use-drag.demo.axis';
+export { useDragSwipe } from './use-drag.demo.swipe';
+export { useDragScroll } from './use-drag.demo.scroll';
+export { useDragFilterTaps } from './use-drag.demo.filterTaps';

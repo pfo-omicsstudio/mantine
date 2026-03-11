@@ -482,3 +482,28 @@ export const Demo_useMaskReset = {
   name: '⭐ Demo: useMaskReset',
   render: renderDemo(demos.useMaskReset),
 };
+
+export const Demo_useDragUsage = {
+  name: '⭐ Demo: useDragUsage',
+  render: renderDemo(demos.useDragUsage),
+};
+
+export const Demo_useDragAxis = {
+  name: '⭐ Demo: useDragAxis',
+  render: renderDemo(demos.useDragAxis),
+};
+
+export const Demo_useDragSwipe = {
+  name: '⭐ Demo: useDragSwipe',
+  render: renderDemo(demos.useDragSwipe),
+};
+
+export const Demo_useDragScroll = {
+  name: '⭐ Demo: useDragScroll',
+  render: renderDemo(demos.useDragScroll),
+};
+
+export const Demo_useDragFilterTaps = {
+  name: '⭐ Demo: useDragFilterTaps',
+  render: renderDemo(demos.useDragFilterTaps),
+};
