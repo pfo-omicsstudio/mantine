@@ -11,6 +11,7 @@ Choose these commands to run after finalizing your work:
 npm run typecheck
 npx eslint path/to/changed/files
 npm run prettier:write:files path/to/changed/files
+npm run build
 
 # Run tests for specific path related to your changes
 npm run jest @mantine/charts
