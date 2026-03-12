@@ -150,6 +150,7 @@ export * as FunnelChartDemos from './demos/charts/FunnelChart';
 export * as HeatmapDemos from './demos/charts/Heatmap';
 export * as BarsListDemos from './demos/charts/BarsList';
 export * as TreemapDemos from './demos/charts/Treemap';
+export * as SankeyChartDemos from './demos/charts/SankeyChart';
 
 // @mantine/schedule
 export * as ScheduleDemos from './demos/schedule/Schedule';

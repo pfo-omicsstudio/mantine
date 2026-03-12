@@ -175,4 +175,15 @@ export const MDX_CHARTS_DATA: Record<string, Frontmatter> = {
     source: '@mantine/charts/src/Treemap/Treemap.tsx',
     docs: 'charts/treemap.mdx',
   },
+
+  SankeyChart: {
+    title: 'SankeyChart',
+    props: ['SankeyChart'],
+    styles: ['SankeyChart'],
+    package: '@mantine/charts',
+    slug: '/charts/sankey-chart',
+    description: 'Sankey diagram component',
+    source: '@mantine/charts/src/SankeyChart/SankeyChart.tsx',
+    docs: 'charts/sankey-chart.mdx',
+  },
 };

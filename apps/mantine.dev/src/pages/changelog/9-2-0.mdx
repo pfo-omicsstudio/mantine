@@ -1,4 +1,4 @@
-import { HooksDemos, NotificationsDemos, TreeSelectDemos } from '@docs/demos';
+import { HooksDemos, NotificationsDemos, SankeyChartDemos, TreeSelectDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -44,3 +44,10 @@ velocity, direction and axis constraints. It uses the Pointer Events API and wor
 both mouse and touch input:
 
 <Demo data={HooksDemos.useDragSwipe} />
+
+## SankeyChart component
+
+New [SankeyChart](/charts/sankey-chart) component visualizes flow between nodes as a Sankey diagram
+where the width of each link is proportional to the flow value:
+
+<Demo data={SankeyChartDemos.usage} />
