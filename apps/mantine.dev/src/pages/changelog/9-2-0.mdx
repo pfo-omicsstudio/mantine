@@ -1,4 +1,4 @@
-import { HooksDemos, NotificationsDemos, SankeyChartDemos, TreeSelectDemos } from '@docs/demos';
+import { DateTimePickerDemos, HooksDemos, InlineDateTimePickerDemos, NotificationsDemos, SankeyChartDemos, TreeSelectDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -44,6 +44,25 @@ velocity, direction and axis constraints. It uses the Pointer Events API and wor
 both mouse and touch input:
 
 <Demo data={HooksDemos.useDragSwipe} />
+
+## InlineDateTimePicker component
+
+New [InlineDateTimePicker](/dates/inline-date-time-picker) component renders a calendar
+with a time picker inline, without a dropdown. It supports both default and range modes:
+
+<Demo data={InlineDateTimePickerDemos.usage} />
+
+Set `type="range"` to select a date and time range with two time inputs:
+
+<Demo data={InlineDateTimePickerDemos.range} />
+
+## DateTimePicker range support
+
+[DateTimePicker](/dates/date-time-picker) now supports `type="range"` to select
+a date and time range. In range mode, two time inputs are displayed in the dropdown
+for start and end times:
+
+<Demo data={DateTimePickerDemos.range} />
 
 ## SankeyChart component
 

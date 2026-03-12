@@ -52,3 +52,8 @@ export const Demo_presets = {
   name: '⭐ Demo: presets',
   render: renderDemo(demos.presets),
 };
+
+export const Demo_range = {
+  name: '⭐ Demo: range',
+  render: renderDemo(demos.range),
+};

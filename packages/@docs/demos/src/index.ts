@@ -127,6 +127,7 @@ export * as DatePickerInputDemos from './demos/dates/DatePickerInput';
 export * as TimeInputDemos from './demos/dates/TimeInput';
 export * as DatesProviderDemos from './demos/dates/DatesProvider';
 export * as DateTimePickerDemos from './demos/dates/DateTimePicker';
+export * as InlineDateTimePickerDemos from './demos/dates/InlineDateTimePicker';
 export * as DateInputDemos from './demos/dates/DateInput';
 export * as CalendarDemos from './demos/dates/Calendar';
 export * as TimePickerDemos from './demos/dates/TimePicker';

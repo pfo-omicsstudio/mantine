@@ -427,6 +427,7 @@ const EXTENSIONS_PAGES_GROUP: MdxPagesCategory[] = [
       MDX_DATA.DatePicker,
       MDX_DATA.DatePickerInput,
       MDX_DATA.DateTimePicker,
+      MDX_DATA.InlineDateTimePicker,
       MDX_DATA.DateInput,
       MDX_DATA.MonthPicker,
       MDX_DATA.MonthPickerInput,
