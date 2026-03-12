@@ -140,6 +140,60 @@ It is called with an object containing `node`, `level`, `expanded`, `hasChildren
 
 <Demo data={TreeSelectDemos.renderNode} />
 
+## Scrollable dropdown
+
+By default, the options list is wrapped with [ScrollArea.Autosize](/core/scroll-area).
+You can control the dropdown max-height with the `maxDropdownHeight` prop:
+
+<Demo data={TreeSelectDemos.scrollArea} />
+
+<ComboboxProps component="TreeSelect" />
+
+## Control dropdown opened state
+
+You can control the dropdown opened state with the `dropdownOpened` prop. Additionally,
+you can use `onDropdownClose` and `onDropdownOpen` to listen to dropdown opened state changes.
+
+<Demo data={TreeSelectDemos.dropdownOpened} />
+
+## Dropdown position
+
+By default, the dropdown is displayed below the input if there is enough space; otherwise it is displayed above the input.
+You can change this behavior by setting the `position` and `middlewares` props, which are passed down to the
+underlying [Popover](/core/popover) component.
+
+Example of a dropdown that is always displayed above the input:
+
+<Demo data={TreeSelectDemos.dropdownPosition} />
+
+## Dropdown width
+
+To change the dropdown width, set the `width` prop in `comboboxProps`. By default,
+the dropdown width is equal to the input width.
+
+<Demo data={TreeSelectDemos.dropdownWidth} />
+
+## Dropdown offset
+
+To change the dropdown offset, set the `offset` prop in `comboboxProps`:
+
+<Demo data={TreeSelectDemos.dropdownOffset} />
+
+## Dropdown animation
+
+By default, dropdown animations are disabled. To enable them, you can set `transitionProps`,
+which will be passed down to the underlying [Transition](/core/transition) component.
+
+<Demo data={TreeSelectDemos.dropdownAnimation} />
+
+## Dropdown padding
+
+<Demo data={TreeSelectDemos.dropdownPadding} />
+
+## Dropdown shadow
+
+<Demo data={TreeSelectDemos.dropdownShadow} />
+
 ## Keyboard navigation
 
 `TreeSelect` supports the following keyboard interactions when the dropdown is open:

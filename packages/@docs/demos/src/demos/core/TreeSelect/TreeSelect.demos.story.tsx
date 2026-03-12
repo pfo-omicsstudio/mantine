@@ -87,3 +87,43 @@ export const Demo_configurator = {
   name: '⭐ Demo: configurator',
   render: renderDemo(demos.configurator),
 };
+
+export const Demo_scrollArea = {
+  name: '⭐ Demo: scrollArea',
+  render: renderDemo(demos.scrollArea),
+};
+
+export const Demo_dropdownOpened = {
+  name: '⭐ Demo: dropdownOpened',
+  render: renderDemo(demos.dropdownOpened),
+};
+
+export const Demo_dropdownPosition = {
+  name: '⭐ Demo: dropdownPosition',
+  render: renderDemo(demos.dropdownPosition),
+};
+
+export const Demo_dropdownWidth = {
+  name: '⭐ Demo: dropdownWidth',
+  render: renderDemo(demos.dropdownWidth),
+};
+
+export const Demo_dropdownOffset = {
+  name: '⭐ Demo: dropdownOffset',
+  render: renderDemo(demos.dropdownOffset),
+};
+
+export const Demo_dropdownAnimation = {
+  name: '⭐ Demo: dropdownAnimation',
+  render: renderDemo(demos.dropdownAnimation),
+};
+
+export const Demo_dropdownPadding = {
+  name: '⭐ Demo: dropdownPadding',
+  render: renderDemo(demos.dropdownPadding),
+};
+
+export const Demo_dropdownShadow = {
+  name: '⭐ Demo: dropdownShadow',
+  render: renderDemo(demos.dropdownShadow),
+};
