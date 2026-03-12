@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react';
-import { useDidUpdate } from '@mantine/hooks';
+import { useEffect, useRef } from 'react';
 import {
   Box,
   BoxProps,
@@ -11,66 +10,16 @@ import {
   useProps,
   useStyles,
 } from '../../core';
+import { buildValue } from './build-value';
 import { DigitColumn } from './DigitColumn';
+import { getDigitParts } from './get-digit-parts';
+import { getRenderSlots } from './get-render-slots';
 import classes from './RollingNumber.module.css';
 
 export type RollingNumberStylesNames = 'root' | 'digit' | 'digitColumn' | 'char';
 export type RollingNumberCssVariables = {
   root: '--rn-duration' | '--rn-timing-function';
 };
-
-function getDigitParts(
-  value: number,
-  decimalScale: number | undefined,
-  fixedDecimalScale: boolean | undefined
-) {
-  const abs = Math.abs(value);
-  let str = decimalScale !== undefined ? abs.toFixed(decimalScale) : String(abs);
-
-  if (!fixedDecimalScale && decimalScale !== undefined) {
-    const parts = str.split('.');
-    if (parts[1]) {
-      const trimmed = parts[1].replace(/0+$/, '');
-      str = trimmed ? `${parts[0]}.${trimmed}` : parts[0];
-    }
-  }
-
-  const dotIdx = str.indexOf('.');
-  const intStr = dotIdx >= 0 ? str.slice(0, dotIdx) : str;
-  const fracStr = dotIdx >= 0 ? str.slice(dotIdx + 1) : '';
-
-  return {
-    negative: value < 0,
-    intDigits: intStr.split(''),
-    fracDigits: fracStr ? fracStr.split('') : [],
-    hasDecimal: dotIdx >= 0,
-  };
-}
-
-function buildAccessibleValue(
-  value: number,
-  prefix: string | undefined,
-  suffix: string | undefined,
-  decimalSeparator: string,
-  thousandSeparator: string | boolean | undefined,
-  decimalScale: number | undefined,
-  fixedDecimalScale: boolean | undefined
-): string {
-  const parts = getDigitParts(value, decimalScale, fixedDecimalScale);
-  let intStr = parts.intDigits.join('');
-
-  if (thousandSeparator) {
-    const sep = typeof thousandSeparator === 'string' ? thousandSeparator : ',';
-    intStr = intStr.replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-  }
-
-  let result = parts.negative ? `-${intStr}` : intStr;
-  if (parts.fracDigits.length > 0) {
-    result += `${decimalSeparator}${parts.fracDigits.join('')}`;
-  }
-
-  return `${prefix || ''}${result}${suffix || ''}`;
-}
 
 export interface RollingNumberProps
   extends BoxProps, StylesApiProps<RollingNumberFactory>, ElementProps<'div'> {
@@ -167,141 +116,33 @@ export const RollingNumber = factory<RollingNumberFactory>((_props) => {
   });
 
   const previousValueRef = useRef(value);
-  const [previousValue, setPreviousValue] = useState(value);
+  const previousValue = previousValueRef.current;
 
-  useDidUpdate(() => {
-    setPreviousValue(previousValueRef.current);
+  useEffect(() => {
     previousValueRef.current = value;
-  }, [value]);
+  });
 
-  const current = getDigitParts(value, decimalScale, fixedDecimalScale);
-  const prev = getDigitParts(previousValue, decimalScale, fixedDecimalScale);
+  const current = getDigitParts({ value, decimalScale, fixedDecimalScale });
+  const prev = getDigitParts({ value: previousValue, decimalScale, fixedDecimalScale });
 
-  const maxIntLen = Math.max(current.intDigits.length, prev.intDigits.length);
-  const maxFracLen = Math.max(current.fracDigits.length, prev.fracDigits.length);
+  const slots = getRenderSlots({
+    current,
+    previous: prev,
+    prefix,
+    suffix,
+    decimalSeparator,
+    thousandSeparator,
+  });
 
-  const currIntPadded: (string | null)[] = [
-    ...Array(maxIntLen - current.intDigits.length).fill(null),
-    ...current.intDigits,
-  ];
-  const prevIntPadded: (string | null)[] = [
-    ...Array(maxIntLen - prev.intDigits.length).fill(null),
-    ...prev.intDigits,
-  ];
-
-  const currFracPadded: (string | null)[] = [
-    ...current.fracDigits,
-    ...Array(maxFracLen - current.fracDigits.length).fill(null),
-  ];
-  const prevFracPadded: (string | null)[] = [
-    ...prev.fracDigits,
-    ...Array(maxFracLen - prev.fracDigits.length).fill(null),
-  ];
-
-  const sep = thousandSeparator
-    ? typeof thousandSeparator === 'string'
-      ? thousandSeparator
-      : ','
-    : null;
-
-  const slots: React.ReactNode[] = [];
-
-  if (prefix) {
-    prefix.split('').forEach((c, i) => {
-      slots.push(
-        <span key={`prefix-${i}`} {...getStyles('char')} aria-hidden="true">
-          {c}
-        </span>
-      );
-    });
-  }
-
-  if (current.negative || prev.negative) {
-    const signEmpty = !current.negative;
-    const charStyles = getStyles('char');
-    slots.push(
-      <span key="sign" {...charStyles} data-empty={signEmpty || undefined} aria-hidden="true">
-        -
-      </span>
-    );
-  }
-
-  for (let i = 0; i < maxIntLen; i++) {
-    const posFromRight = maxIntLen - 1 - i;
-    const currDigit = currIntPadded[i];
-    const prevDigit = prevIntPadded[i];
-    const isEmpty = currDigit === null;
-
-    slots.push(
-      <DigitColumn
-        key={`int-${posFromRight}`}
-        digit={currDigit ?? '0'}
-        previousDigit={prevDigit}
-        getStyles={getStyles}
-        empty={isEmpty}
-      />
-    );
-
-    if (sep && posFromRight > 0 && posFromRight % 3 === 0) {
-      const charStyles = getStyles('char');
-      slots.push(
-        <span
-          key={`sep-${posFromRight}`}
-          {...charStyles}
-          data-empty={isEmpty || undefined}
-          aria-hidden="true"
-        >
-          {sep}
-        </span>
-      );
-    }
-  }
-
-  if (current.hasDecimal || prev.hasDecimal) {
-    const decEmpty = !current.hasDecimal;
-    const charStyles = getStyles('char');
-    slots.push(
-      <span key="dec" {...charStyles} data-empty={decEmpty || undefined} aria-hidden="true">
-        {decimalSeparator}
-      </span>
-    );
-  }
-
-  for (let i = 0; i < maxFracLen; i++) {
-    const currDigit = currFracPadded[i];
-    const prevDigit = prevFracPadded[i];
-    const isEmpty = currDigit === null;
-
-    slots.push(
-      <DigitColumn
-        key={`frac-${i}`}
-        digit={currDigit ?? '0'}
-        previousDigit={prevDigit}
-        getStyles={getStyles}
-        empty={isEmpty}
-      />
-    );
-  }
-
-  if (suffix) {
-    suffix.split('').forEach((c, i) => {
-      slots.push(
-        <span key={`suffix-${i}`} {...getStyles('char')} aria-hidden="true">
-          {c}
-        </span>
-      );
-    });
-  }
-
-  const accessibleValue = buildAccessibleValue(
+  const accessibleValue = buildValue({
     value,
     prefix,
     suffix,
-    decimalSeparator!,
+    decimalSeparator,
     thousandSeparator,
     decimalScale,
-    fixedDecimalScale
-  );
+    fixedDecimalScale,
+  });
 
   return (
     <Box
@@ -311,7 +152,30 @@ export const RollingNumber = factory<RollingNumberFactory>((_props) => {
       aria-label={accessibleValue}
       {...others}
     >
-      {slots}
+      {slots.map((slot) => {
+        if (slot.type === 'digit') {
+          return (
+            <DigitColumn
+              key={slot.key}
+              digit={slot.digit}
+              previousDigit={slot.previousDigit}
+              getStyles={getStyles}
+              empty={slot.empty}
+            />
+          );
+        }
+
+        return (
+          <span
+            key={slot.key}
+            {...getStyles('char')}
+            data-empty={slot.empty || undefined}
+            aria-hidden="true"
+          >
+            {slot.char}
+          </span>
+        );
+      })}
     </Box>
   );
 });

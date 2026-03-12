@@ -137,6 +137,15 @@ describe('@mantine/core/RollingNumber', () => {
     expect(Array.from(digitsBefore).every((d) => !d.hasAttribute('data-empty'))).toBe(true);
   });
 
+  it('marks leading digit as empty on the first render after shrinking (1000 → 999)', () => {
+    const { container, rerender } = render(<RollingNumber value={999} />);
+    rerender(<RollingNumber value={1000} />);
+    rerender(<RollingNumber value={999} />);
+    const digits = container.querySelectorAll('.mantine-RollingNumber-digit');
+    expect(digits).toHaveLength(4);
+    expect(digits[0]).toHaveAttribute('data-empty');
+  });
+
   it('includes aria-label with thousand separators', () => {
     const { container } = render(
       <RollingNumber value={1000000} thousandSeparator prefix="$ " suffix=" USD" />
