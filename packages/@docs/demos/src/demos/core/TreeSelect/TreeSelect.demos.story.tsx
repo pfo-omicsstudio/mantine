@@ -62,3 +62,28 @@ export const Demo_renderNode = {
   name: '⭐ Demo: renderNode',
   render: renderDemo(demos.renderNode),
 };
+
+export const Demo_disabled = {
+  name: '⭐ Demo: disabled',
+  render: renderDemo(demos.disabled),
+};
+
+export const Demo_error = {
+  name: '⭐ Demo: error',
+  render: renderDemo(demos.error),
+};
+
+export const Demo_sections = {
+  name: '⭐ Demo: sections',
+  render: renderDemo(demos.sections),
+};
+
+export const Demo_readOnly = {
+  name: '⭐ Demo: readOnly',
+  render: renderDemo(demos.readOnly),
+};
+
+export const Demo_configurator = {
+  name: '⭐ Demo: configurator',
+  render: renderDemo(demos.configurator),
+};

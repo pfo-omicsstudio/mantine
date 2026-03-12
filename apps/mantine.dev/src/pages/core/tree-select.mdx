@@ -170,7 +170,33 @@ import { TreeSelect } from '@mantine/core';
 />
 ```
 
+<InputSections component="TreeSelect" />
+
+<Demo data={TreeSelectDemos.sections} />
+
+## Input props
+
 <InputFeatures component="TreeSelect" element="input" />
+
+<Demo data={TreeSelectDemos.configurator} />
+
+## Read only
+
+Set `readOnly` to make the input read only. When `readOnly` is set,
+`TreeSelect` will not show suggestions and will not call the `onChange` function.
+
+<Demo data={TreeSelectDemos.readOnly} />
+
+## Disabled
+
+Set `disabled` to disable the input. When `disabled` is set,
+the user cannot interact with the input and `TreeSelect` will not show suggestions.
+
+<Demo data={TreeSelectDemos.disabled} />
+
+## Error state
+
+<Demo data={TreeSelectDemos.error} />
 
 <GetElementRef component="TreeSelect" refType="input" />
 

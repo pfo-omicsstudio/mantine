@@ -10,3 +10,8 @@ export { withLines } from './TreeSelect.demo.withLines';
 export { nothingFound } from './TreeSelect.demo.nothingFound';
 export { maxValues } from './TreeSelect.demo.maxValues';
 export { renderNode } from './TreeSelect.demo.renderNode';
+export { disabled } from './TreeSelect.demo.disabled';
+export { error } from './TreeSelect.demo.error';
+export { sections } from './TreeSelect.demo.sections';
+export { readOnly } from './TreeSelect.demo.readOnly';
+export { configurator } from './TreeSelect.demo.configurator';
