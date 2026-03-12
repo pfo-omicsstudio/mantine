@@ -44,7 +44,7 @@ const deepData: TreeNodeData[] = [
   },
 ];
 
-const defaultProps: TreeSelectProps = {
+const defaultProps = {
   ...inputDefaultProps,
   data: treeData,
 };

@@ -5,7 +5,7 @@ import {
   ElementProps,
   extractStyleProps,
   Factory,
-  factory,
+  genericFactory,
   MantineColor,
   StylesApiProps,
   useProps,
@@ -51,7 +51,11 @@ export type TreeSelectStylesNames =
 
 export type TreeSelectMode = 'single' | 'multiple' | 'checkbox';
 
-export interface TreeSelectProps
+export type TreeSelectValue<Mode extends TreeSelectMode> = Mode extends 'single'
+  ? string | null
+  : string[];
+
+export interface TreeSelectProps<Mode extends TreeSelectMode = 'single'>
   extends
     BoxProps,
     __BaseInputProps,
@@ -61,16 +65,16 @@ export interface TreeSelectProps
   data: TreeNodeData[];
 
   /** Selection mode: 'single', 'multiple', or 'checkbox' (with cascade) @default 'single' */
-  mode?: TreeSelectMode;
+  mode?: Mode;
 
-  /** Controlled value – string | null for single, string[] for multiple/checkbox */
-  value?: string | string[] | null;
+  /** Controlled value */
+  value?: TreeSelectValue<Mode>;
 
   /** Default value */
-  defaultValue?: string | string[] | null;
+  defaultValue?: TreeSelectValue<Mode>;
 
   /** Called when value changes */
-  onChange?: (value: any) => void;
+  onChange?: (value: TreeSelectValue<Mode>) => void;
 
   /** Disables parent-child cascade in checkbox mode @default false */
   checkStrictly?: boolean;
@@ -186,6 +190,9 @@ export type TreeSelectFactory = Factory<{
   ref: HTMLInputElement;
   stylesNames: TreeSelectStylesNames;
   variant: InputVariant;
+  signature: <Mode extends TreeSelectMode = 'single'>(
+    props: TreeSelectProps<Mode>
+  ) => React.JSX.Element;
 }>;
 
 const defaultProps = {
@@ -198,7 +205,7 @@ const defaultProps = {
   openOnFocus: true,
   size: 'sm',
   withLines: true,
-} satisfies Partial<TreeSelectProps>;
+} satisfies Partial<TreeSelectProps<TreeSelectMode>>;
 
 const clearSectionOffset: Record<string, number> = {
   xs: 41,
@@ -223,8 +230,8 @@ function getAncestorsToNode(value: string, nodes: TreeNodeData[]): string[] | nu
   return null;
 }
 
-export const TreeSelect = factory<TreeSelectFactory>((_props) => {
-  const props = useProps('TreeSelect', defaultProps, _props);
+export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
+  const props = useProps('TreeSelect', defaultProps as any, _props);
   const {
     classNames,
     className,
@@ -315,7 +322,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
   const isCheckbox = mode === 'checkbox';
   const _id = useId(id);
 
-  // Combobox store
   const combobox = useCombobox({
     opened: dropdownOpened,
     defaultOpened: defaultDropdownOpened,
@@ -329,7 +335,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     },
   });
 
-  // Expanded state
   const initialExpanded = useMemo(() => {
     if (defaultExpandAll) {
       return getTreeExpandedState(data, '*');
@@ -372,7 +377,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     [_expandedState]
   );
 
-  // Search state – initialise with current label so searchable single mode shows the selection
   const initialSearchValue = useMemo(() => {
     if (mode !== 'single' || !defaultValue) {
       return '';
@@ -393,7 +397,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     combobox.resetSelectedOption();
   };
 
-  // Value state
   const [_value, setValue] = useUncontrolled({
     value: value as any,
     defaultValue: defaultValue as any,
@@ -401,7 +404,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     onChange,
   });
 
-  // Internal checked state for checkbox mode (leaf nodes, or direct values in strict mode)
   const internalChecked = useMemo(() => {
     if (!isCheckbox || !_value || !Array.isArray(_value)) {
       return [];
@@ -412,7 +414,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     return expandToLeafChecked(_value, data);
   }, [isCheckbox, _value, data, checkStrictly]);
 
-  // Compute filtered + flattened nodes
   const filteredData = useMemo(() => {
     if (!searchable || !_searchValue) {
       return data;
@@ -448,11 +449,9 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     [filteredData, expandedForRender]
   );
 
-  // Flat node ref for keyboard navigation
   const flatNodesRef = useRef(flatNodes);
   flatNodesRef.current = flatNodes;
 
-  // Node lookup for labels
   const nodeLookup = useMemo(() => {
     const lookup: Record<string, TreeNodeData> = {};
     const walk = (nodes: TreeNodeData[]) => {
@@ -475,7 +474,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     return typeof node.label === 'string' ? node.label : nodeValue;
   };
 
-  // Styles
   const getStyles = useStyles<TreeSelectFactory>({
     name: 'TreeSelect',
     classes: {} as any,
@@ -497,7 +495,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     rest: { type, autoComplete, ...rest },
   } = extractStyleProps(others);
 
-  // Selection handlers
   const handleOptionSubmit = (val: string) => {
     if (mode === 'single') {
       if (expandOnClick) {
@@ -570,7 +567,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     }
   };
 
-  // Keyboard handler for expand/collapse
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     onKeyDown?.(event);
 
@@ -622,7 +618,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     }
   };
 
-  // Sync search with selected label in single mode
   useEffect(() => {
     if (mode !== 'single' || !searchable) {
       return;
@@ -634,7 +629,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     }
   }, [value]);
 
-  // Auto-expand ancestors of the selected value when dropdown opens in searchable mode
   const prevDropdownOpenedRef = useRef(false);
   useEffect(() => {
     if (combobox.dropdownOpened && !prevDropdownOpenedRef.current && searchable && _value) {
@@ -662,7 +656,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     prevDropdownOpenedRef.current = combobox.dropdownOpened;
   });
 
-  // Clear button
   const clearButton = (
     <Combobox.ClearButton
       {...clearButtonProps}
@@ -679,7 +672,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     : _value != null && _value !== '';
   const _clearable = clearable && hasValue && !disabled && !readOnly;
 
-  // Display label for single mode
   const singleDisplayLabel = useMemo(() => {
     if (mode !== 'single' || !_value) {
       return '';
@@ -687,7 +679,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     return getNodeLabel(_value as string);
   }, [mode, _value, nodeLookup]);
 
-  // Pills for multi/checkbox mode
   const displayValues = useMemo(() => {
     if (!isMulti || !Array.isArray(_value)) {
       return [];
@@ -740,7 +731,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     );
   }
 
-  // Render options
   const isEmpty = flatNodes.length === 0;
 
   const options = flatNodes.map((flatNode) => {
@@ -926,7 +916,6 @@ export const TreeSelect = factory<TreeSelectFactory>((_props) => {
     );
   }
 
-  // Single mode
   return (
     <>
       <Combobox
