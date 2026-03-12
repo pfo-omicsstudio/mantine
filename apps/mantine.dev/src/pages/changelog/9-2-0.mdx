@@ -1,4 +1,4 @@
-import { HooksDemos, TreeSelectDemos } from '@docs/demos';
+import { HooksDemos, NotificationsDemos, TreeSelectDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -28,6 +28,14 @@ from Combobox primitives with connecting lines, expand/collapse chevrons, and pr
 - [Searchable tree select](/combobox?e=TreeSelectSearchable) – tree select with search filtering
 - [Tree select with checkboxes](/combobox?e=TreeSelectCheckbox) – single select with expand-on-click
 - [Virtualized tree select](/combobox?e=TreeSelectVirtualized) – large tree (~500 nodes) with @tanstack/react-virtual
+
+## Notifications swipe dismissal
+
+[@mantine/notifications](/x/notifications) now supports dismissing notifications by dragging them
+left or right, and with horizontal scroll swipe while hovered. Both interactions can be disabled
+on `Notifications`, and individual items can opt out with `allowClose: false`.
+
+<Demo data={NotificationsDemos.base} />
 
 ## use-drag hook
 
