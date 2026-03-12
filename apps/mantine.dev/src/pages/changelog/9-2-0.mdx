@@ -1,4 +1,4 @@
-import { DateTimePickerDemos, HooksDemos, InlineDateTimePickerDemos, NotificationsDemos, SankeyChartDemos, TreeSelectDemos } from '@docs/demos';
+import { DateTimePickerDemos, HooksDemos, InlineDateTimePickerDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeSelectDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -63,6 +63,13 @@ a date and time range. In range mode, two time inputs are displayed in the dropd
 for start and end times:
 
 <Demo data={DateTimePickerDemos.range} />
+
+## RollingNumber component
+
+New [RollingNumber](/core/rolling-number) component animates value changes with rolling digit
+transitions. Each digit independently rolls to its new position when the value changes:
+
+<Demo data={RollingNumberDemos.usage} />
 
 ## SankeyChart component
 

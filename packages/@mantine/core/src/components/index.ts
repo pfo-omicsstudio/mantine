@@ -82,6 +82,7 @@ export * from './Portal';
 export * from './Progress';
 export * from './Radio';
 export * from './Rating';
+export * from './RollingNumber';
 export * from './RingProgress';
 export * from './Scroller';
 export * from './SegmentedControl';

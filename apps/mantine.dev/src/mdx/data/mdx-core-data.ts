@@ -1092,6 +1092,17 @@ export const MDX_CORE_DATA: Record<string, Frontmatter> = {
     docs: 'core/number-formatter.mdx',
   },
 
+  RollingNumber: {
+    title: 'RollingNumber',
+    package: '@mantine/core',
+    slug: '/core/rolling-number',
+    props: ['RollingNumber'],
+    styles: ['RollingNumber'],
+    description: 'Animate value changes with rolling digits',
+    source: '@mantine/core/src/components/RollingNumber/RollingNumber.tsx',
+    docs: 'core/rolling-number.mdx',
+  },
+
   FloatingIndicator: {
     title: 'FloatingIndicator',
     package: '@mantine/core',
