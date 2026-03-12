@@ -132,7 +132,7 @@ export function TreeSelectOption({
               tabIndex={-1}
               aria-label={expanded ? 'Collapse' : 'Expand'}
             >
-              <AccordionChevron size={16} />
+              <AccordionChevron size="80%" />
             </span>
           )}
           {showCheckbox && (

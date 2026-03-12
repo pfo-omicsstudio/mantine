@@ -19,9 +19,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  min-width: 20px;
-  height: 20px;
+  --_ts-expand-icon-size: calc(1.45 * var(--combobox-option-fz, var(--mantine-font-size-sm)));
+  width: var(--_ts-expand-icon-size);
+  min-width: var(--_ts-expand-icon-size);
+  height: var(--_ts-expand-icon-size);
   border-radius: var(--mantine-radius-sm);
   cursor: pointer;
   color: var(--mantine-color-dimmed);
