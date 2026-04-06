@@ -68,7 +68,6 @@ describe('@mantine/core/Notifications', () => {
     stylesApiSelectors: ['root'],
   });
 
-<<<<<<< HEAD
   it.each([140, -140])('dismisses notification when dragged horizontally (%ipx)', (distance) => {
     jest.useFakeTimers();
     const store = createNotificationsStore();
