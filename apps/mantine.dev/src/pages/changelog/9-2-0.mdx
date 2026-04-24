@@ -1,4 +1,4 @@
-import { DateTimePickerDemos, InlineDateTimePickerDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos } from '@docs/demos';
+import { DateTimePickerDemos, InlineDateTimePickerDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos, WeekViewDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -104,3 +104,12 @@ This is useful when a node contains interactive controls (inputs, buttons) that 
 interfere with dragging:
 
 <Demo data={TreeDemos.dragDropHandle} />
+
+## Per-day business hours in WeekView
+
+[WeekView](/schedule/week-view) `businessHours` prop now accepts a per-day object keyed by day of
+the week (`0` – Sunday, `6` – Saturday) in addition to the shared `[start, end]` tuple. Days
+missing from the object or set to `null` are rendered as fully outside business hours, making it
+easy to model partial workdays and non-working days:
+
+<Demo data={WeekViewDemos.businessHoursPerDay} />
