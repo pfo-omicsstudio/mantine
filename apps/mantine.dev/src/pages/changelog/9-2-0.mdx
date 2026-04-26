@@ -64,6 +64,15 @@ for start and end times:
 
 <Demo data={DateTimePickerDemos.range} />
 
+## DateTimePicker valueFormat function
+
+[DateTimePicker](/dates/date-time-picker) `valueFormat` prop now accepts a function in addition
+to a dayjs format string. The callback receives the value as a `YYYY-MM-DD HH:mm:ss` string and
+returns the formatted value, which is useful for cases that cannot be expressed with a dayjs
+format string:
+
+<Demo data={DateTimePickerDemos.formatFunction} />
+
 ## RollingNumber component
 
 New [RollingNumber](/core/rolling-number) component animates value changes with rolling digit
