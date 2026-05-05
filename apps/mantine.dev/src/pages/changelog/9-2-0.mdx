@@ -90,10 +90,19 @@ where the width of each link is proportional to the flow value:
 ## Reorder pills in MultiSelect and TagsInput
 
 [MultiSelect](/core/multi-select) and [TagsInput](/core/tags-input) now support reordering
-selected pills with drag-and-drop. Set the new `withPillsReorder` prop to make pills draggable;
-dropping a pill before or after another pill updates the component value. Reordering is
-automatically disabled when `disabled` or `readOnly` is set. Custom pill renderers receive a
-`reorderProps` payload that can be spread onto the pill element to keep reordering working:
+selected pills. Set the new `withPillsReorder` prop to enable it. Pills can be reordered with
+a mouse (drag-and-drop) or keyboard:
+
+- Pills are not part of the `Tab` order. `ArrowLeft` from the input (caret at start) moves
+  focus to the last pill.
+- `ArrowLeft` and `ArrowRight` navigate between pills (RTL-aware). `ArrowRight` on the last
+  pill returns focus to the input.
+- `Alt + ArrowLeft` and `Alt + ArrowRight` reorder the focused pill (RTL-aware). Focus follows
+  the moved pill so chained moves work.
+
+Reordering is automatically disabled when `disabled` or `readOnly` is set. Custom pill renderers
+receive a `reorderProps` payload that can be spread onto the pill element to keep reordering
+working:
 
 <Demo data={MultiSelectDemos.dragReorder} />
 

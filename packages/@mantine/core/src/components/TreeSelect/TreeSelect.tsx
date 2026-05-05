@@ -94,7 +94,7 @@ export interface TreeSelectProps<Mode extends TreeSelectMode = 'single'>
   /** Called when expanded state changes */
   onExpandedChange?: (values: string[]) => void;
 
-  /** Also toggle expand when clicking a parent node (not just the chevron) @default false */
+  /** Also toggle expand when clicking a parent node (not just the chevron). In `single` and `multiple` modes, parent clicks only expand; only leaves can be selected. In `checkbox` mode, parent clicks both check and expand. @default false */
   expandOnClick?: boolean;
 
   /** Enables search filtering @default false */
