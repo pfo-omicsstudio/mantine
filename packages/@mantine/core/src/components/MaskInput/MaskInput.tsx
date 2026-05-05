@@ -50,6 +50,9 @@ export interface MaskInputProps
     currentState: { value: string; selection: { start: number; end: number } | null };
     nextState: { value: string; selection: { start: number; end: number } | null };
   }) => { value: string; selection: { start: number; end: number } | null };
+
+  /** Assigns a function that clears the input value to the given ref */
+  resetRef?: React.RefObject<(() => void) | null>;
 }
 
 export type MaskInputFactory = Factory<{

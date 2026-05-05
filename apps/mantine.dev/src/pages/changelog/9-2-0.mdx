@@ -1,4 +1,4 @@
-import { DateTimePickerDemos, InlineDateTimePickerDemos, InputDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos, WeekViewDemos } from '@docs/demos';
+import { DateTimePickerDemos, InlineDateTimePickerDemos, InputDemos, MaskInputDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos, WeekViewDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -79,6 +79,19 @@ New [RollingNumber](/core/rolling-number) component animates value changes with 
 transitions. Each digit independently rolls to its new position when the value changes:
 
 <Demo data={RollingNumberDemos.usage} />
+
+## MaskInput improvements
+
+[MaskInput](/core/mask-input) now supports a `resetRef` prop that assigns a function that
+clears the input value imperatively. This is useful because `MaskInput` is uncontrolled
+internally, so setting `value` from a parent does not clear it:
+
+<Demo data={MaskInputDemos.resetRef} />
+
+`MaskInput` integration with [use-form](/form/use-form) is now documented. Use `defaultValue`
+to seed the initial value and `onChangeRaw` to write the raw value to form state:
+
+<Demo data={MaskInputDemos.withUseForm} />
 
 ## SankeyChart component
 
