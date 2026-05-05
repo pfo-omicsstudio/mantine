@@ -518,20 +518,19 @@ export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
           return;
         }
       }
-      if (clearSearchOnChange) {
-        setSearchValue('');
-      }
       const arr = (_value as string[]) || [];
       if (arr.includes(val)) {
         setValue(arr.filter((v: string) => v !== val));
         onRemove?.(val);
       } else if (arr.length < (maxValues ?? Infinity)) {
         setValue([...arr, val]);
+      } else {
+        return;
       }
-    } else if (mode === 'checkbox') {
       if (clearSearchOnChange) {
         setSearchValue('');
       }
+    } else if (mode === 'checkbox') {
       const nodeChecked = checkStrictly
         ? internalChecked.includes(val)
         : isNodeChecked(val, data, internalChecked);
@@ -555,6 +554,9 @@ export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
         return;
       }
       setValue(newValue);
+      if (clearSearchOnChange) {
+        setSearchValue('');
+      }
 
       if (expandOnClick) {
         const node = findTreeNode(val, data);
