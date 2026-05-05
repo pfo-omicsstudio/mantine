@@ -41,6 +41,12 @@ describe('@mantine/core/TagsInput', () => {
     selector: 'input',
   });
 
+  tests.itSupportsSharedInputDefaults<TagsInputProps>({
+    component: TagsInput,
+    props: defaultProps,
+    componentName: 'TagsInput',
+  });
+
   it('correctly handles custom isDuplicate', async () => {
     const user = userEvent.setup();
     render(

@@ -48,6 +48,12 @@ describe('@mantine/core/MultiSelect', () => {
     selector: 'input',
   });
 
+  tests.itSupportsSharedInputDefaults<MultiSelectProps>({
+    component: MultiSelect,
+    props: defaultProps,
+    componentName: 'MultiSelect',
+  });
+
   it('supports uncontrolled state', async () => {
     render(<MultiSelect {...defaultProps} name="test-multi-select" />);
     await userEvent.click(screen.getByRole('combobox'));

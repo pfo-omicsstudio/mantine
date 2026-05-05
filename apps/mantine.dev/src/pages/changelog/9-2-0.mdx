@@ -1,4 +1,4 @@
-import { DateTimePickerDemos, InlineDateTimePickerDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos, WeekViewDemos } from '@docs/demos';
+import { DateTimePickerDemos, InlineDateTimePickerDemos, InputDemos, MultiSelectDemos, NotificationsDemos, RollingNumberDemos, SankeyChartDemos, TreeDemos, TreeSelectDemos, UseDragDemos, WeekViewDemos } from '@docs/demos';
 import { Layout } from '@/layout';
 import { MDX_DATA } from '@/mdx';
 
@@ -113,6 +113,17 @@ This is useful when a node contains interactive controls (inputs, buttons) that 
 interfere with dragging:
 
 <Demo data={TreeDemos.dragDropHandle} />
+
+## Shared default props for all inputs
+
+Default props set on `Input` and `Input.Wrapper` in `theme.components` now cascade to every
+component built on top of them ([TextInput](/core/text-input/), [Textarea](/core/textarea/),
+[NumberInput](/core/number-input/), [Select](/core/select/), [DateInput](/dates/date-input/),
+and others). This makes it possible to apply shared `size`, `radius`, `variant`, `withAsterisk`
+and other props to all inputs at once, while still overriding individual components with their
+own default props:
+
+<Demo data={InputDemos.sharedDefaultProps} />
 
 ## Per-day business hours in WeekView
 

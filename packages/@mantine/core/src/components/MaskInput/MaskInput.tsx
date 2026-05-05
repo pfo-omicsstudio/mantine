@@ -62,7 +62,7 @@ export type MaskInputFactory = Factory<{
 const defaultProps = {} satisfies Partial<MaskInputProps>;
 
 export const MaskInput = factory<MaskInputFactory>((props) => {
-  const _props = useProps('MaskInput', defaultProps, props);
+  const _props = useProps(['Input', 'InputWrapper', 'MaskInput'], defaultProps, props);
   const { maskRef, elementProps } = useMaskInputProps(_props);
 
   return (

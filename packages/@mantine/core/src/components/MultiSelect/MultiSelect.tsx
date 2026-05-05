@@ -166,7 +166,7 @@ const defaultProps = {
 } satisfies Partial<MultiSelectProps>;
 
 export const MultiSelect = genericFactory<MultiSelectFactory>((_props) => {
-  const props = useProps('MultiSelect', defaultProps, _props);
+  const props = useProps(['Input', 'InputWrapper', 'MultiSelect'], defaultProps, _props);
   const {
     classNames,
     className,

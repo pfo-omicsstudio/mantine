@@ -71,6 +71,12 @@ describe('@mantine/core/TreeSelect', () => {
     selector: 'input',
   });
 
+  tests.itSupportsSharedInputDefaults<TreeSelectProps>({
+    component: TreeSelect,
+    props: defaultProps,
+    componentName: 'TreeSelect',
+  });
+
   it('opens/closes dropdown on input click', async () => {
     render(<TreeSelect {...defaultProps} />);
     expect(screen.queryByRole('listbox')).toBe(null);

@@ -149,7 +149,7 @@ const defaultProps = {
 } satisfies Partial<TagsInputProps>;
 
 export const TagsInput = factory<TagsInputFactory>((_props) => {
-  const props = useProps('TagsInput', defaultProps, _props);
+  const props = useProps(['Input', 'InputWrapper', 'TagsInput'], defaultProps, _props);
   const {
     classNames,
     className,

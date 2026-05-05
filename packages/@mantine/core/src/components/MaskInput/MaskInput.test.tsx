@@ -28,4 +28,10 @@ describe('@mantine/core/MaskInput', () => {
     props: defaultProps,
     selector: 'input',
   });
+
+  tests.itSupportsSharedInputDefaults<MaskInputProps>({
+    component: MaskInput,
+    props: defaultProps,
+    componentName: 'MaskInput',
+  });
 });

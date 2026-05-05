@@ -111,7 +111,7 @@ const defaultProps = {
 } satisfies Partial<DateTimePickerProps>;
 
 export const DateTimePicker = genericFactory<DateTimePickerFactory>((_props) => {
-  const props = useProps('DateTimePicker', defaultProps as any, _props);
+  const props = useProps(['Input', 'InputWrapper', 'DateTimePicker'], defaultProps as any, _props);
   const {
     value,
     defaultValue,

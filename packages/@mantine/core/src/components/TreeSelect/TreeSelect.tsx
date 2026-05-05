@@ -231,7 +231,7 @@ function getAncestorsToNode(value: string, nodes: TreeNodeData[]): string[] | nu
 }
 
 export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
-  const props = useProps('TreeSelect', defaultProps as any, _props);
+  const props = useProps(['Input', 'InputWrapper', 'TreeSelect'], defaultProps as any, _props);
   const {
     classNames,
     className,
