@@ -39,7 +39,11 @@ import {
   checkedToValue,
   expandToLeafChecked,
 } from './get-checked-values-by-strategy';
-import { TreeSelectOption, TreeSelectRenderNodePayload } from './TreeSelectOption';
+import {
+  TreeSelectChevronAriaLabels,
+  TreeSelectOption,
+  TreeSelectRenderNodePayload,
+} from './TreeSelectOption';
 import classes from './TreeSelect.module.css';
 
 export type TreeSelectStylesNames =
@@ -183,6 +187,9 @@ export interface TreeSelectProps<Mode extends TreeSelectMode = 'single'>
 
   /** Opens dropdown on focus (searchable mode) @default true */
   openOnFocus?: boolean;
+
+  /** aria-label values for the expand/collapse chevron button */
+  chevronAriaLabels?: TreeSelectChevronAriaLabels;
 }
 
 export type TreeSelectFactory = Factory<{
@@ -281,6 +288,7 @@ export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
     comboboxProps,
     clearSearchOnChange,
     openOnFocus,
+    chevronAriaLabels,
     variant,
     onKeyDown,
     onFocus,
@@ -770,13 +778,17 @@ export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
         withLines={!!withLines}
         onToggleExpand={toggleExpand}
         renderNode={renderNode}
+        chevronAriaLabels={chevronAriaLabels}
       />
     );
   });
 
   const dropdown = (
     <Combobox.Dropdown hidden={readOnly || disabled}>
-      <Combobox.Options className={classes.optionsWrapper}>
+      <Combobox.Options
+        className={classes.optionsWrapper}
+        aria-multiselectable={isMulti || undefined}
+      >
         <ScrollArea.Autosize
           mah={maxDropdownHeight ?? 220}
           type="scroll"
