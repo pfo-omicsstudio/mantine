@@ -673,6 +673,7 @@ export const TreeSelect = genericFactory<TreeSelectFactory>((_props) => {
         onClear?.();
         setValue(isMulti ? [] : null);
         handleSearchChange('');
+        combobox.focusTarget();
       }}
     />
   );
