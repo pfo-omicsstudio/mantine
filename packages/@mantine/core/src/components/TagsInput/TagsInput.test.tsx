@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { inputDefaultProps, inputStylesApiSelectors, render, tests } from '@mantine-tests/core';
 import { TagsInput, TagsInputProps, TagsInputStylesNames } from './TagsInput';
@@ -393,7 +393,7 @@ describe('@mantine/core/TagsInput', () => {
     it('focuses the last pill when ArrowLeft is pressed in the empty input', async () => {
       render(<Controlled />);
       const input = screen.getByRole('combobox');
-      input.focus();
+      act(() => input.focus());
       await userEvent.keyboard('{ArrowLeft}');
       const pills = getPills();
       expect(pills[pills.length - 1]).toHaveFocus();
