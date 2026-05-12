@@ -311,9 +311,9 @@ export const PinInput = factory<PinInputFactory>((props) => {
 
     if (inputMode === 'numeric') {
       const allowedKeys = ['Backspace', 'Tab', 'Control', 'Delete', 'ArrowLeft', 'ArrowRight'];
-      const isPasteShortcut = (ctrlKey || metaKey) && key === 'v';
+      const isModifierShortcut = ctrlKey || metaKey;
       const isAllowedKey =
-        allowedKeys.includes(key) || isPasteShortcut || !Number.isNaN(Number(key));
+        allowedKeys.includes(key) || isModifierShortcut || !Number.isNaN(Number(key));
 
       if (!isAllowedKey) {
         event.preventDefault();
