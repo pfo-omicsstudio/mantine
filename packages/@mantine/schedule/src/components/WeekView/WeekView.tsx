@@ -552,6 +552,7 @@ export const WeekView = factory<WeekViewFactory>((_props) => {
     events: expandedEvents,
     startTime,
     endTime,
+    intervalMinutes,
     firstDayOfWeek: ctx.getFirstDayOfWeek(firstDayOfWeek),
     weekendDays: ctx.getWeekendDays(weekendDays),
     withWeekendDays,
